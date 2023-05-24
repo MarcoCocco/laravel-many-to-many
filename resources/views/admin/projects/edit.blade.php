@@ -60,6 +60,16 @@
             @enderror
         </div>
 
+        <div class="mb-3 form-group">
+            <p>Technologies</p>
+            @foreach ($technologies as $technology)
+            <div class="form-check">
+                <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}" value="{{ $technology->id }}" @checked( $project->technologies->contains($technology) )>
+                <label for="technology-{{ $technology->id }}">{{ $technology->name }}</label>
+            </div>
+            @endforeach
+        </div>
+
         <div class="mb-3">
             <label for="creation_date">Data di creazione</label>
             <input type="date" name="creation_date" id="creation_date"
