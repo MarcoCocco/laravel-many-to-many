@@ -45,7 +45,7 @@
             <label for="type_id">Tipo di Progetto</label>
             <select name="type_id" id="type_id" class="form-select @error('type_id') is-invalid @enderror"
                 aria-label="Default select example">
-                <option selected>Nessuno</option>
+                <option value="">Nessuno</option>
                 @foreach ($types as $type)
                     <option value="{{ $type->id }}" @if (old('type_id') == $type->id) selected @endif>
                         {{ $type->name }}</option>

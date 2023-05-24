@@ -6,6 +6,7 @@
             <th>Titolo</th>
             <th>Descrizione</th>
             <th>Tipo di progetto</th>
+            <th>Tecnologie</th>
         </thead>
 
         <tbody>
@@ -15,6 +16,18 @@
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->description }}</td>
                     <td>{{ $project->type->name ?? 'Non specificato' }}</td>
+                    <td>
+                        @if (count($project->technologies) > 0)
+                            @foreach ($project->technologies as $index => $technology)
+                                {{ $technology->name }}
+                                @if ($index !== count($project->technologies) - 1)
+                                    ,
+                                @endif
+                            @endforeach
+                        @else
+                            Non specificate
+                        @endif
+                    </td>
                     <td><a href="{{ route('admin.projects.show', $project) }}"><i
                                 class="fa-solid fa-magnifying-glass"></i></a></td>
                 </tr>
