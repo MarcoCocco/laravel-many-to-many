@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('title', 255)->unique();
             $table->text('description');
             $table->string('github_link', 150);
-            $table->string('language', 25);
             $table->date('creation_date');
             $table->boolean('is_complete');
             $table->string('slug', 255);

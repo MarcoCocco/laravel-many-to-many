@@ -59,17 +59,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="language">Linguaggio di programmazione</label>
-            <input type="text" name="language" id="language"
-                class="form-control @error('language') is-invalid @enderror" value="{{ old('language') }}">
-            @error('language')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-
-        <div class="mb-3">
             <label for="creation_date">Data di creazione</label>
             <input type="date" name="creation_date" id="creation_date"
                 class="form-control @error('creation_date') is-invalid @enderror" value="{{ old('creation_date') }}">

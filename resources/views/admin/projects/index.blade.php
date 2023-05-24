@@ -6,7 +6,6 @@
             <th>Titolo</th>
             <th>Descrizione</th>
             <th>Tipo di progetto</th>
-            <th>Linguaggio di Programmazione</th>
         </thead>
 
         <tbody>
@@ -16,7 +15,6 @@
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->description }}</td>
                     <td>{{ $project->type->name ?? 'Non specificato' }}</td>
-                    <td>{{ $project->language }}</td>
                     <td><a href="{{ route('admin.projects.show', $project) }}"><i
                                 class="fa-solid fa-magnifying-glass"></i></a></td>
                 </tr>

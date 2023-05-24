@@ -18,7 +18,6 @@
                 <thead>
                     <th>Link alla Repository</th>
                     <th>Tipo di Progetto</th>
-                    <th>Linguaggio</th>
                     <th>Data di creazione</th>
                     <th>Completo</th>
                 </thead>
@@ -27,7 +26,6 @@
                     <tr>
                         <td>{{ $project->github_link }}</td>
                         <td>{{ $project->type->name ?? 'Non specificato' }}</td>
-                        <td>{{ $project->language }}</td>
                         <td>{{ $project->creation_date }}</td>
                         <td>{{ $project->is_complete ? 'Sì' : 'No' }}</td>
                     </tr>

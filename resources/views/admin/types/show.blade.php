@@ -10,7 +10,6 @@
             <thead>
                 <th>Nome</th>
                 <th>Descrizione</th>
-                <th>Linguaggio di programmazione</th>
                 <th>Dettagli del progetto</th>
 
             </thead>
@@ -19,7 +18,6 @@
                     <tr>
                         <td>{{ $project->title }}</td>
                         <td>{{ $project->description }}</td>
-                        <td>{{ $project->language }}</td>
                         <td><a href="{{ route('admin.projects.show', $project) }}">Vai al progetto</a></td>
                     </tr>
                 @endforeach
