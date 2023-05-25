@@ -1,7 +1,7 @@
 @extends('layouts/admin')
 
 @section('content')
-    <h1 class="m-4 text-center">Crea un progetto</h1>
+    <h1 class="m-4 text-center">Aggiungi un progetto</h1>
     <div class="back-to-list text-center mb-4">
         <a href="{{ route('admin.projects.index') }}"><i class="fa-solid fa-left-long"></i> Torna indietro</a>
     </div>
@@ -61,11 +61,17 @@
         <div class="mb-3 form-group">
             <p>Technologies</p>
             @foreach ($technologies as $technology)
-            <div class="form-check">
-                <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}" value="{{ $technology->id }}">
-                <label for="technology-{{ $technology->id }}">{{ $technology->name }}</label>
-            </div>
+                <div class="form-check">
+                    <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
+                        value="{{ $technology->id }}" @checked(in_array($technology->id, old('technologies'), []))>
+                    <label for="technology-{{ $technology->id }}">{{ $technology->name }}</label>
+                </div>
             @endforeach
+            @error('creation_date')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <div class="mb-3">

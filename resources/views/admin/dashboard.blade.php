@@ -21,7 +21,8 @@
                     
                     <div class="text-center p-4">
                         <p><a href="{{ route('admin.projects.index') }}">Vai alla lista dei Progetti</a></p>
-                        <p><a href="{{ route('admin.types.index') }}">Vai alla lista di tutte le tipologie di progetto</a></p>
+                        <p><a href="{{ route('admin.types.index') }}">Vai alla lista di tutte le tipologie di un progetto</a></p>
+                        <p><a href="{{ route('admin.technologies.index') }}">Vai alla lista di tutte le tecnologie di un progetto</a></p>
                         <p class="pt-3">Oppure</p>
                         <a href="{{ url('/') }}">Torna alla Homepage</a>
                     </div>

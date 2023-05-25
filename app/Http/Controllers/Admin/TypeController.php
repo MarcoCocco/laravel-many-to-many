@@ -18,6 +18,7 @@ class TypeController extends Controller
     public function index()
     {
         $types = Type::all();
+
         return view('admin.types.index', compact('types'));
     }
 
@@ -115,7 +116,7 @@ class TypeController extends Controller
         ], [
             'name.required' => 'Devi inserire un nome.',
             'name.max' => 'Il nome deve avere massimo :max caratteri.',
-            'name.unique' => 'Tipo già presente: inserisci un nuovo tipo.',
+            'name.unique' => 'Tipologia già presente: inserisci una nuova tipologia.',
             'description.required' => 'La descrizione deve contenere qualcosa.',
         ])->validate();
 

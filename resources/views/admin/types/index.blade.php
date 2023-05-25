@@ -23,7 +23,7 @@
     </div>
     <div class="d-flex justify-content-around m-4">
         <a href="{{ route('admin.types.create') }}" class="btn btn-primary">
-            Aggiungi un tipo di progetto
+            Aggiungi una tipologia di progetto
         </a>
     </div>
 @endsection

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class TechnologyController extends Controller
 {
@@ -15,7 +17,9 @@ class TechnologyController extends Controller
      */
     public function index()
     {
-        //
+        $technologies = Technology::all();
+
+        return view('admin.technologies.index', compact('technologies'));
     }
 
     /**
@@ -25,7 +29,7 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.technologies.create');
     }
 
     /**
@@ -36,7 +40,17 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formData = $request->all();
+        $this->validation($formData);
+
+        $technology = new Technology();
+        $technology->fill($formData);
+
+        $technology->slug = Str::slug($technology->name, '-');
+
+        $technology->save();
+
+        return redirect()->route('admin.technologies.index', $technology);
     }
 
     /**
@@ -47,7 +61,7 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
-        //
+        return view('admin.technologies.show', compact('technology'));
     }
 
     /**
@@ -58,7 +72,7 @@ class TechnologyController extends Controller
      */
     public function edit(Technology $technology)
     {
-        //
+        return view('admin.technologies.edit', compact('technology'));
     }
 
     /**
@@ -70,7 +84,13 @@ class TechnologyController extends Controller
      */
     public function update(Request $request, Technology $technology)
     {
-        //
+        $formData = $request->all();
+        $this->validation($formData);
+
+        $technology->slug = Str::slug($formData['name'], '-');
+        $technology->update($formData);
+
+        return redirect()->route('admin.technologies.show', $technology);
     }
 
     /**
@@ -81,6 +101,23 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+        $technology->delete();
+
+        return redirect()->route('admin.technologies.index');
+    }
+
+    private function validation($formData) {
+
+        $validator = Validator::make($formData, [
+            'name' => 'max:50|required|unique:App\Models\Technology,name',
+            'color' => 'required|string',
+        ], [
+            'name.required' => 'Devi inserire un nome.',
+            'name.max' => 'Il nome deve avere massimo :max caratteri.',
+            'name.unique' => 'Tecnologia già presente: inserisci una nuova tecnologia.',
+            'color.required' => 'Devi inserire il codice di un colore.',
+        ])->validate();
+
+        return $validator;
     }
 }

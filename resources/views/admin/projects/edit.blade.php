@@ -44,7 +44,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="type_id">Tipo di Progetto</label>
+            <label for="type_id">Tipologia di Progetto</label>
             <select name="type_id" id="type_id" class="form-select @error('type_id') is-invalid @enderror"
                 aria-label="Default select example">
                 <option value="">Nessuno</option>
@@ -63,11 +63,22 @@
         <div class="mb-3 form-group">
             <p>Technologies</p>
             @foreach ($technologies as $technology)
-            <div class="form-check">
-                <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}" value="{{ $technology->id }}" @checked( $project->technologies->contains($technology) )>
+                @if ($errors->any())
+                    <div class="form-check">
+                        <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
+                            value="{{ $technology->id }}" @checked(in_array($technology->id, old('technologies'), []))>
+                    @else
+                        <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
+                            value="{{ $technology->id }}" @checked($project->technologies->contains($technology->id))>
+                @endif
                 <label for="technology-{{ $technology->id }}">{{ $technology->name }}</label>
+        </div>
+        @endforeach
+        @error('creation_date')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
-            @endforeach
+        @enderror
         </div>
 
         <div class="mb-3">
