@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2 class="text-center m-4">Tipi di Progetto</h2>
+        <h2 class="text-center m-4">Tipologie di Progetto</h2>
         <div class="row">
             @foreach ($types as $type)
                 <div class="col-md-12 mb-4">

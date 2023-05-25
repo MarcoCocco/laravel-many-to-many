@@ -1,7 +1,7 @@
 @extends('layouts/admin')
 
 @section('content')
-    <h1 class="m-4 text-center">Crea un tipo</h1>
+    <h1 class="m-4 text-center">Crea una tipologia</h1>
     <div class="back-to-list text-center mb-4">
         <a href="{{ route('admin.types.index') }}"><i class="fa-solid fa-left-long"></i> Torna indietro</a>
     </div>
