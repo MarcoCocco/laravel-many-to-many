@@ -6,7 +6,9 @@
         <div class="back-to-list text-center mb-4">
             <a href="{{ route('admin.projects.index') }}"><i class="fas fa-long-arrow-alt-left"></i> Torna alla lista</a>
         </div>
-        <div class="card">
+
+        <div class="card mx-auto" style="width: 50%;">
+            <img src="{{ asset('storage/' . $project->project_image) }}" class="card-img-top" alt="img">
             <div class="card-body">
                 <h3 class="card-title text-center">
                     {{ $project->title }}
@@ -16,22 +18,21 @@
                     {{ $project->description }}
                 </p>
                 <hr>
-                <table class="table table-striped">
-                    <thead>
-                        <th>Link alla Repository</th>
-                        <th>Tipo di Progetto</th>
-                        <th>Data di creazione</th>
-                        <th>Completo</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ $project->github_link }}</td>
-                            <td>{{ $project->type->name ?? 'Non specificato' }}</td>
-                            <td>{{ $project->creation_date }}</td>
-                            <td>{{ $project->is_complete ? 'Sì' : 'No' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <p><strong>Link alla Repository:</strong></p> {{ $project->github_link }}
+                    </li>
+                    <li class="list-group-item">
+                        <p><strong>Tipo di Progetto:</strong> </p>{{ $project->type->name ?? 'Non specificato' }}
+                    </li>
+                    <li class="list-group-item">
+                        <p><strong>Data di creazione:</strong> </p>{{ $project->creation_date }}
+                    </li>
+                    <li class="list-group-item">
+                        <p><strong>Completo:</strong></p> {{ $project->is_complete ? 'Sì' : 'No' }}
+                    </li>
+                </ul>
+                <hr>
                 <div class="text-center">
                     <h6>Tecnologie</h6>
                     <div class="row">
@@ -51,7 +52,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="d-flex justify-content-center gap-4 p-4">
             <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-primary">Modifica</a>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">

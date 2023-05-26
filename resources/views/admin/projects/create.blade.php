@@ -5,7 +5,7 @@
     <div class="back-to-list text-center mb-4">
         <a href="{{ route('admin.projects.index') }}"><i class="fa-solid fa-left-long"></i> Torna indietro</a>
     </div>
-    <form action="{{ route('admin.projects.store') }}" method="POST">
+    <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -63,7 +63,7 @@
             @foreach ($technologies as $technology)
                 <div class="form-check">
                     <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
-                        value="{{ $technology->id }}" @checked(in_array($technology->id, old('technologies'), []))>
+                        value="{{ $technology->id }}" @checked(in_array($technology->id, old('technologies', [])))>
                     <label for="technology-{{ $technology->id }}">{{ $technology->name }}</label>
                 </div>
             @endforeach
@@ -94,6 +94,17 @@
                 <option value="0" @if (old('is_complete') == '0') selected @endif>No</option>
             </select>
             @error('is_complete')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="project_image">Carica un'immagine</label>
+            <input type="file" name="project_image" id="project_image"
+                class="form-control @error('project_image') is-invalid @enderror">
+            @error('project_image')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

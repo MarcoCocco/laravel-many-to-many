@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -50,9 +51,16 @@ class ProjectController extends Controller
         $this->validation($formData);
 
         $project = new Project();
+
+        if ($request->hasFile('project_image')) {
+            $path = Storage::put('cover_images', $request->project_image);
+            $formData['project_image'] = $path;
+        }
+
         $project->fill($formData);
 
         $project->slug = Str::slug($project->title, '-');
+
 
         $project->save();
 
@@ -99,6 +107,15 @@ class ProjectController extends Controller
         $formData = $request->all();
         $this->validation($formData);
 
+        if ($request->hasFile('project_image')) {
+            if ($project->project_image) {
+                Storage::delete($project->project_image);
+            }
+            
+            $path = Storage::put('cover_images', $request->project_image);
+            $formData['project_image'] = $path;
+        }
+
         $project->slug = Str::slug($formData['title'], '-');
         $project->update($formData);
 
@@ -119,6 +136,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->project_image) {
+            Storage::delete($project->project_image);
+        }
+
         $project->delete();
 
         return redirect()->route('admin.projects.index');
@@ -132,9 +153,10 @@ class ProjectController extends Controller
             'description' => 'required|string',
             'github_link' => 'required|string|max:150',
             'type_id' => 'nullable|exists:types,id',
-            'technologies' => 'extists:technologies,id',
+            'technologies' => 'exists:technologies,id',
             'creation_date' => 'required|date',
             'is_complete' => 'required|boolean',
+            'project_image' => 'nullable|image|max:4096',
         ], [
             'title.required' => 'Devi inserire un titolo.',
             'title.max' => 'Il titolo deve avere massimo :max caratteri.',
@@ -147,6 +169,8 @@ class ProjectController extends Controller
             'creation_date.date' => 'La data di creazione deve essere valida.',
             'is_complete.required' => 'Devi specificare se il progetto è completo o meno.',
             'is_complete.boolean' => 'Il valore del campo deve essere "Sì" o "No".',
+            'project_image.image' => "Il file deve essere un'immagine",
+            'project_image.max' => "La dimensione del file è troppo grande",
         ])->validate();
 
         return $validator;
